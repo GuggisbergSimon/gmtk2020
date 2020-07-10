@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
+    private Grid _grid;
+
+    public Grid Grid => _grid;
     public static GameManager Instance { get; private set; }
-    
 
     private void Update()
     {
@@ -33,6 +36,8 @@ public class GameManager : MonoBehaviour
     private void Setup()
     {
         //alternative way to get elements. cons : if there is no element with such tag it creates an error
+        _grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<Grid>();
+        //_grid = FindObjectOfType<Grid>();
         //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         //_player = FindObjectOfType<PlayerController>();
         //_uiManager = FindObjectOfType<UIManager>();
