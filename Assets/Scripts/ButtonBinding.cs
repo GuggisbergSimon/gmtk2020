@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
 public class ButtonBinding : MonoBehaviour
@@ -14,60 +17,44 @@ public class ButtonBinding : MonoBehaviour
     // Action to rebind
     private InputAction actionToBind;
 
-    // Rebinding
-    private InputActionRebindingExtensions.RebindingOperation rebindOperation;
+    // Mapping Creator
+    public MappingCreator mapping;
+    public GameObject panel;
+    public GameObject addKeyPrefab;
 
     private void Start()
     {
-        // UI
-        this.button = this.GetComponent<Button>();
-        this.text = this.GetComponentInChildren<Text>();
-
         // Action
         this.actionToBind = actionReference.action;
 
+        // UI
+        this.button = this.GetComponent<Button>();
+        this.text = this.GetComponentInChildren<Text>();
+        text.text = actionReference.name;
+
         // Process
-        // this.button.onClick.AddListener();  // TODO
+        this.button.onClick.AddListener(delegate { AddNewKey(actionToBind); } );
+
+        // Mapping Creator
+        this.mapping = this.GetComponentInParent<MappingCreator>();
     }
 
-    private void AddNewKeyToAction(InputBinding binding)
+    private void AddNewKey(InputAction actionToBind)
     {
-        actionToBind.AddBinding(binding);
-    }
+        panel.SetActive(true);
 
+        foreach(KeyValuePair<KeyControl, Tuple<InputAction, bool>> entry in mapping.mapping)
+        {
+            GameObject existingButton = Instantiate(addKeyPrefab, panel.transform);
 
+            existingButton.GetComponentInChildren<Text>().text = entry.Key.displayName;
 
+            existingButton.GetComponent<ButtonBindingSub>().actionToBind = actionToBind;
+        }
 
+        GameObject addButton = Instantiate(addKeyPrefab, panel.transform);
 
-    private void ButtonRebindPressed(string name)
-    {
-        // DO NOT CLICK ANYMORE.
-        button.enabled = false;
-
-        text.text = "Press button/stick for " + name;
-
-        // First, discard any remaining rebinding operation, before selecting the new one.
-        rebindOperation?.Dispose();
-        rebindOperation = actionToBind.PerformInteractiveRebinding()
-            // To avoid accidental input from mouse motion
-            .WithControlsExcluding("<Mouse>/position")
-            .WithControlsExcluding("<Mouse>/delta")
-            .OnMatchWaitForAnother(0.1f)
-            .OnComplete(operation => ButtonRebindCompleted());
-    }
-
-    private void ButtonRebindCompleted()
-    {
-        // Discard everything so the player can bind again.
-        rebindOperation.Dispose();
-        rebindOperation = null;
-
-        // You can use the button again.
-        button.enabled = true;
-    }
-
-    private void OnDestroy()
-    {
-        
+        addButton.GetComponentInChildren<Text>().text = "Add new key!";
+        addButton.GetComponent<ButtonBindingSub>().actionToBind = actionToBind;
     }
 }

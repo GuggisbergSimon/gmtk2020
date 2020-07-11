@@ -9,7 +9,7 @@ public class MappingCreator : MonoBehaviour
 {
     InputMaster controls;
     // Map: KeyControl -> (InputAction, bool usable), ...)
-    private Dictionary<KeyControl, Tuple<InputAction, bool>> mapping;
+    public Dictionary<KeyControl, Tuple<InputAction, bool>> mapping;
 
     private void Start()
     {
