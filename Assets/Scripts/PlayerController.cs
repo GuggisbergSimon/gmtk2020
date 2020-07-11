@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 yield break;
             }
 
-            if (_levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos)).name.Equals("box"))
+            if (_levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos)).name.StartsWith("box"))
             {
                 //the player can only push if no wall or box behind the box
                 if (_levelManager.Map.HasTile(Vector3Int.FloorToInt(nextPos + move)))
@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
                 //pushes the box
                 _levelManager.Map.SetTile(Vector3Int.FloorToInt(nextPos), null);
+                //todo support multiple type of boxes being pushed (and stop with that spaghetti code)
                 spriteBox.transform.localPosition = move;
                 spriteBox.SetActive(true);
             }
