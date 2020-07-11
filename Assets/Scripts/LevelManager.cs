@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private Tilemap map = null;
     [SerializeField] private Tilemap flagMap = null;
-    private List<Vector2Int> _flags = new List<Vector2Int>();
+    private List<Vector3Int> _flags = new List<Vector3Int>();
 
     public Tilemap Map => map;
 
@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
                 TileBase tile = allTilesFlag[x + y * boundsFlag.size.x];
                 if (tile != null)
                 {
-                    _flags.Add(new Vector2Int( + boundsFlag.position.x, y + boundsFlag.position.y));
+                    _flags.Add(new Vector3Int(x + boundsFlag.position.x, y + boundsFlag.position.y, 0));
                 }
             }
         }
@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
     {
         foreach (var flagPos in _flags)
         {
-            if (!map.HasTile((Vector3Int) flagPos))
+            if (!map.HasTile(flagPos))
             {
                 return false;
             }
