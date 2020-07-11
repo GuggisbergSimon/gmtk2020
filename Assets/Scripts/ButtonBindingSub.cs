@@ -9,7 +9,7 @@ public class ButtonBindingSub : MonoBehaviour
     // UI elements
     private Button button;
     public Text text;
-    private Text defaultText;
+    private string defaultText;
 
     // Rebind de tes morts
     public InputAction actionToBind;
@@ -21,15 +21,15 @@ public class ButtonBindingSub : MonoBehaviour
         this.button = this.GetComponent<Button>();
         this.text = this.GetComponentInChildren<Text>();
 
-        if(!text.Equals("Add new key!"))
-        {
-            button.onClick.AddListener(delegate { RemoveKey(name); });
-        } else
-        {
+        //if(!text.Equals("Add new key!"))
+        //{
+        //    button.onClick.AddListener(delegate { RemoveKey(name); });
+        //} else
+        //{
             button.onClick.AddListener(delegate { AssignKey(name); });
-        }
+        //}
 
-        this.defaultText.text = this.text.text;
+        this.defaultText = this.text.text;
     }
 
     private void RemoveKey(string name)
@@ -39,22 +39,29 @@ public class ButtonBindingSub : MonoBehaviour
 
     private void AssignKey(string name)
     {
-        this.GetComponent<Button>().enabled = false;
+        button.enabled = false;
 
-        this.GetComponentInChildren<Text>().text = "Press button/stick for " + name;
+        text.text = "Press button/stick for " + name;
 
         m_RebindOperation?.Dispose();
-        //m_RebindOperation = actionToBind.PerformInteractiveRebinding()
-          //  .WithControlsExcluding("<Mouse>/position")
-            //.WithControlsExcluding("<Mouse>/delta")
-            //.OnMatchWaitForAnother(0.1f)
-           // .OnComplete(operation => Complete());
-        m_RebindOperation.Cancel();
+        m_RebindOperation = actionToBind.PerformInteractiveRebinding()
+            .WithRebindAddingNewBinding()
+            .WithControlsExcluding("<Mouse>/position")
+            .WithControlsExcluding("<Mouse>/delta")
+            .OnMatchWaitForAnother(0.1f)
+            .OnComplete(operation => Complete());
+        m_RebindOperation.Start();
     }
 
     private void Complete()
     {
-        
-        this.GetComponentInChildren<Text>().text = "Add new key!";
+        actionToBind.AddBinding(m_RebindOperation.selectedControl);
+
+        m_RebindOperation.Dispose();
+        m_RebindOperation = null;
+        text.text = defaultText;
+        button.enabled = true;
+
+        Debug.Log(actionToBind);
     }
 }

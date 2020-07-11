@@ -51,10 +51,5 @@ public class ButtonBinding : MonoBehaviour
 
             existingButton.GetComponent<ButtonBindingSub>().actionToBind = actionToBind;
         }
-
-        GameObject addButton = Instantiate(addKeyPrefab, panel.transform);
-
-        addButton.GetComponentInChildren<Text>().text = "Add new key!";
-        addButton.GetComponent<ButtonBindingSub>().actionToBind = actionToBind;
     }
 }
