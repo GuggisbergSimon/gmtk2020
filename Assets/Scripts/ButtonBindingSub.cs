@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,19 +16,22 @@ public class ButtonBindingSub : MonoBehaviour
     public InputAction actionToBind;
     private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
 
+    // State
+    public bool isKey;
+
     private void Start()
     {
         // UI
         this.button = this.GetComponent<Button>();
         this.text = this.GetComponentInChildren<Text>();
 
-        //if(!text.Equals("Add new key!"))
-        //{
-        //    button.onClick.AddListener(delegate { RemoveKey(name); });
-        //} else
-        //{
+        if(this.isKey)
+        {
+            button.onClick.AddListener(delegate { RemoveKey(name); });
+        } else
+        {
             button.onClick.AddListener(delegate { AssignKey(name); });
-        //}
+        }
 
         this.defaultText = this.text.text;
     }
@@ -56,12 +60,12 @@ public class ButtonBindingSub : MonoBehaviour
     private void Complete()
     {
         actionToBind.AddBinding(m_RebindOperation.selectedControl);
+        text.text = m_RebindOperation.selectedControl.displayName;
+
+        isKey = true;
+        button.enabled = true;
 
         m_RebindOperation.Dispose();
         m_RebindOperation = null;
-        text.text = defaultText;
-        button.enabled = true;
-
-        Debug.Log(actionToBind);
     }
 }
