@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 4f;
+    [SerializeField] private Transform spritePlayer = null;
+    [SerializeField] private GameObject spriteBox = null;
     private bool _canMove = true;
     private LevelManager _levelManager;
     private Animator _animator;
@@ -20,7 +22,8 @@ public class PlayerController : MonoBehaviour
     {
         //todo check remaining controls and decrease them
         //todo rework how input is check/handled
-        if (_canMove && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
+        if (_canMove && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) ||
+                         Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
         {
             StartCoroutine(Move());
         }
@@ -31,16 +34,16 @@ public class PlayerController : MonoBehaviour
         Vector3 move =
             Vector3.right * (Input.GetAxisRaw("Horizontal") * _levelManager.Map.cellSize.x) +
             Vector3.up * (Input.GetAxisRaw("Vertical") * _levelManager.Map.cellSize.y);
-        
+
         //Handles animation triggers
         _animator.ResetTrigger("Up");
         _animator.ResetTrigger("Down");
         _animator.ResetTrigger("LR");
-        
+
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             _animator.SetTrigger("LR");
-            transform.right = Vector3.right * (Input.GetKeyDown(KeyCode.RightArrow) ? 1 : -1);
+            spritePlayer.right = Vector3.right * (Input.GetKeyDown(KeyCode.RightArrow) ? 1 : -1);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -50,12 +53,13 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetTrigger("Up");
         }
-        
+
         Vector3 nextPos = transform.position + move;
+        TileBase nextTile = _levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos));
 
         if (_levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos)) != null)
         {
-            if (_levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos)).name.Equals("wall"))
+            if (_levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos)).name.StartsWith("wall"))
             {
                 yield break;
             }
@@ -69,26 +73,33 @@ public class PlayerController : MonoBehaviour
                 }
 
                 //pushes the box
-                TileBase box = _levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos));
                 _levelManager.Map.SetTile(Vector3Int.FloorToInt(nextPos), null);
-                _levelManager.Map.SetTile(Vector3Int.FloorToInt(nextPos + move), box);
-                if (_levelManager.CheckFlags())
-                {
-                    Debug.Log("omedetou");
-                    //todo win
-                }
+                spriteBox.transform.localPosition = move;
+                spriteBox.SetActive(true);
             }
         }
 
         _canMove = false;
         Vector3 pos = transform.position;
         float t = Time.deltaTime * moveSpeed;
-        for (; t < 1f; t += Time.deltaTime * moveSpeed) {
+        for (; t < 1f; t += Time.deltaTime * moveSpeed)
+        {
             transform.position = pos + Vector3.Lerp(Vector3.zero, move, t);
             yield return null;
         }
 
         transform.position = nextPos;
+        if (spriteBox.activeSelf)
+        {
+            _levelManager.Map.SetTile(Vector3Int.FloorToInt(nextPos + move), nextTile);
+            spriteBox.SetActive(false);
+            if (_levelManager.CheckFlags())
+            {
+                Debug.Log("omedetou");
+                //todo win
+            }
+        }
+
         _canMove = true;
     }
 }
