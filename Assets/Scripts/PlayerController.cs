@@ -5,20 +5,22 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float coolDownMove = 0.5f;
+    [SerializeField] private float moveSpeed = 4f;
     private bool _canMove = true;
     private LevelManager _levelManager;
-    private SpriteRenderer _sprite;
+    private Animator _animator;
 
     private void Start()
     {
         _levelManager = GameManager.Instance.LevelManager;
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        //todo check remaining controls
-        if (_canMove && (Mathf.Abs(Input.GetAxis("Vertical")) > 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f))
+        //todo check remaining controls and decrease them
+        //todo rework how input is check/handled
+        if (_canMove && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)))
         {
             StartCoroutine(Move());
         }
@@ -29,11 +31,26 @@ public class PlayerController : MonoBehaviour
         Vector3 move =
             Vector3.right * (Input.GetAxisRaw("Horizontal") * _levelManager.Map.cellSize.x) +
             Vector3.up * (Input.GetAxisRaw("Vertical") * _levelManager.Map.cellSize.y);
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0)
+        
+        //Handles animation triggers
+        _animator.ResetTrigger("Up");
+        _animator.ResetTrigger("Down");
+        _animator.ResetTrigger("LR");
+        
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            transform.right = Vector3.right * Input.GetAxisRaw("Horizontal");
+            _animator.SetTrigger("LR");
+            transform.right = Vector3.right * (Input.GetKeyDown(KeyCode.RightArrow) ? 1 : -1);
         }
-
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _animator.SetTrigger("Down");
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            _animator.SetTrigger("Up");
+        }
+        
         Vector3 nextPos = transform.position + move;
 
         if (_levelManager.Map.GetTile(Vector3Int.FloorToInt(nextPos)) != null)
@@ -64,8 +81,14 @@ public class PlayerController : MonoBehaviour
         }
 
         _canMove = false;
-        transform.position += move;
-        yield return new WaitForSeconds(coolDownMove);
+        Vector3 pos = transform.position;
+        float t = Time.deltaTime * moveSpeed;
+        for (; t < 1f; t += Time.deltaTime * moveSpeed) {
+            transform.position = pos + Vector3.Lerp(Vector3.zero, move, t);
+            yield return null;
+        }
+
+        transform.position = nextPos;
         _canMove = true;
     }
 }
