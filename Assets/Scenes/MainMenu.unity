@@ -2143,13 +2143,7 @@ PrefabInstance:
     - target: {fileID: 3787032661960703060, guid: 7d8fd280196d00f408584dbb1828ce85,
         type: 3}
       propertyPath: m_text
-      value: 'Options
-
-        move
-
-        reset
-
-        remap'
+      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 3787032661960703060, guid: 7d8fd280196d00f408584dbb1828ce85,
         type: 3}
@@ -2159,12 +2153,12 @@ PrefabInstance:
     - target: {fileID: 3787032661960703060, guid: 7d8fd280196d00f408584dbb1828ce85,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3787032661960703060, guid: 7d8fd280196d00f408584dbb1828ce85,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3787032661960703060, guid: 7d8fd280196d00f408584dbb1828ce85,
         type: 3}
