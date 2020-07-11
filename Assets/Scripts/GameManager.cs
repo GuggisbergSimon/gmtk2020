@@ -4,10 +4,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private LevelManager _levelManager;
+    private MappingCreator _mappingCreator;
     public LevelManager LevelManager => _levelManager;
 
-    public static GameManager Instance { get; private set; }
+    public MappingCreator MappingCreator => _mappingCreator;
 
+    public static GameManager Instance { get; private set; }
 
     private void OnEnable()
     {
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         //alternative way to get elements. cons : if there is no element with such tag it creates an error
         _levelManager = FindObjectOfType<LevelManager>();
+        _mappingCreator = FindObjectOfType<MappingCreator>();
         //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         //_player = FindObjectOfType<PlayerController>();
         //_uiManager = FindObjectOfType<UIManager>();

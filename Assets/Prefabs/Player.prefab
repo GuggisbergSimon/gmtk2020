@@ -154,6 +154,43 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c9e9b7089758b2f429ff9861120752d1, type: 3}
   - {fileID: 21300000, guid: 99ac3c8eb63263c458cf7722645df054, type: 3}
   hardResetThreshold: 0
+  soundGroup: {fileID: -1712451469036179099, guid: 155c12706128b8944bc3ac8beb722311,
+    type: 2}
+  buttonUsed:
+  - {fileID: 8300000, guid: ac9314c9e1d6a134b974237cd08a9c54, type: 3}
+  - {fileID: 8300000, guid: 93d37985e167565458e4772ee1defe18, type: 3}
+  wallHit:
+  - {fileID: 8300000, guid: ecf925cfdd9cb8f418ceec54d19f9d48, type: 3}
+  - {fileID: 8300000, guid: 1885ffad390244747b8e455ef5a7ad66, type: 3}
+  scrubFloor:
+  - {fileID: 8300000, guid: 7bc675eed1f6dbc4a966ecf03598fc01, type: 3}
+  - {fileID: 8300000, guid: e25964e08906d2f46929988cb35e8c01, type: 3}
+  moveRobot:
+  - {fileID: 8300000, guid: 9161651956f27dc44a95cea79029e54a, type: 3}
+  - {fileID: 8300000, guid: 380bf4617c183464dbe7f1bf6f4b38ad, type: 3}
+  - {fileID: 8300000, guid: fbadcabf33f9d5745ba1d6e1665b0109, type: 3}
+  moveMetal:
+  - {fileID: 8300000, guid: c870316c4724eb1439fe480800bd8127, type: 3}
+  - {fileID: 8300000, guid: 1f4bc8b9dc3466e4fb18c1fc88ff8cd1, type: 3}
+  - {fileID: 8300000, guid: aa304a8862e81174a969dff367788452, type: 3}
+  moveTrash:
+  - {fileID: 8300000, guid: 6343b5331ec632b4f87b518029b8f6cd, type: 3}
+  - {fileID: 8300000, guid: 3d94c6a24746fb84ba98740617c52910, type: 3}
+  robotNoise:
+  - {fileID: 8300000, guid: 1e5c2e724c03c0245a26c80a3ce4af92, type: 3}
+  - {fileID: 8300000, guid: 7ec04e1eb7364d549b544a343a3f8fcb, type: 3}
+  - {fileID: 8300000, guid: 5244c6b1fdf24434ba8468d78bc7c530, type: 3}
+  - {fileID: 8300000, guid: 5f2a77dd5af589b45b9d7d0daf99b814, type: 3}
+  - {fileID: 8300000, guid: 17b3da20951ca514b81fce86d0b6145d, type: 3}
+  - {fileID: 8300000, guid: 9a5ca5dd66ced00409bbcd8c0cb11788, type: 3}
+  - {fileID: 8300000, guid: 218c6f85173b21d40b86d2014936f1c4, type: 3}
+  - {fileID: 8300000, guid: 897382c00789fc744baa3e2e0234d1e7, type: 3}
+  - {fileID: 8300000, guid: 117f53bb7413db347832fd3e8b3f66ce, type: 3}
+  - {fileID: 8300000, guid: bd6e876eb64dd7644aaf3bf7730b6bcc, type: 3}
+  - {fileID: 8300000, guid: 375481b73c641a14183f55bebf8c9cad, type: 3}
+  - {fileID: 8300000, guid: c77079290a6922348b00831ae3d67be9, type: 3}
+  - {fileID: 8300000, guid: 3ca60f5e56cc1ef46af5c5475df4c1ea, type: 3}
+  - {fileID: 8300000, guid: babbbc64808839948827a01a17906d83, type: 3}
 --- !u!1 &5117764953682807657
 GameObject:
   m_ObjectHideFlags: 0
