@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/InputMaster.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputMaster.inputactions'
 
 using System;
 using System.Collections;
@@ -40,7 +40,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""93d66bde-9d35-4068-99ad-30cd63071fef"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Remap"",
@@ -132,7 +132,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""45f4ef74-dbcd-464d-a388-443390de2fc6"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",

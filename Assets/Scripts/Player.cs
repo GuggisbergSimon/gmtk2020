@@ -52,6 +52,14 @@ public class Player : MonoBehaviour
     private void Remap()
     {
         Debug.Log("Remap");
+        InputAction act = controls.Actions.Move;
+        act.AddCompositeBinding("2DVector")
+            .With("Up", "<Keyboard>/w")
+            .With("Down", "<Keyboard>/s")
+            .With("Left", "<Keyboard>/a")
+            .With("Right", "<Keyboard>/d");
+        act.Enable();
+        Debug.Log(act.GetBindingDisplayString());
     }
 
 }
