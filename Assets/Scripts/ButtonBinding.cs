@@ -24,7 +24,7 @@ public class ButtonBinding : MonoBehaviour
         this.text = this.GetComponentInChildren<Text>();
 
         // Action
-        // this.actionToBind = actionReference.action;
+        this.actionToBind = actionReference.action;
 
         // Process
         // this.button.onClick.AddListener();  // TODO

@@ -7,6 +7,7 @@ public class ButtonRemapController : MonoBehaviour
     public Button ok;
     public InputActionAsset inputs;
     private InputActionMap actions;
+    public MappingCreator mapping;
 
     private void Start()
     {
@@ -21,6 +22,9 @@ public class ButtonRemapController : MonoBehaviour
 
     private void ConfirmRemap()
     {
+        // Apply the binding
+        mapping.ApplyInputBinding();
+
         // Enable control again.
         actions.Enable();
 

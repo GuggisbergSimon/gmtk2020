@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.Interactions;
 
 public class Player : MonoBehaviour
 {
@@ -26,14 +27,17 @@ public class Player : MonoBehaviour
         controls = new InputMaster();
 
         // For each control, register an event/a function to do when the action is performed.
-        controls.Actions.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        controls.Actions.MoveUp.performed += ctx => Move(ctx.control);
+        controls.Actions.MoveDown.performed += ctx => Move(ctx.control);
+        controls.Actions.MoveLeft.performed += ctx => Move(ctx.control);
+        controls.Actions.MoveRight.performed += ctx => Move(ctx.control);
         controls.Actions.Reset.canceled += ctx => Reset(ctx.duration);
         controls.Actions.Remap.performed += ctx => Remap();
     }
 
-    private void Move(Vector2 context)
+    private void Move(InputControl key)
     {
-        Debug.Log("We are moving! " + context);
+        Debug.Log("We are moving! " + key);
     }
 
     private void Reset(double duration)
@@ -52,14 +56,7 @@ public class Player : MonoBehaviour
     private void Remap()
     {
         Debug.Log("Remap");
-        InputAction act = controls.Actions.Move;
-        act.AddCompositeBinding("2DVector")
-            .With("Up", "<Keyboard>/w")
-            .With("Down", "<Keyboard>/s")
-            .With("Left", "<Keyboard>/a")
-            .With("Right", "<Keyboard>/d");
-        act.Enable();
-        Debug.Log(act.GetBindingDisplayString());
-    }
 
+        // Call the remap menu
+    }
 }

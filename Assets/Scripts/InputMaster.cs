@@ -19,9 +19,33 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""id"": ""d7002342-42f5-4192-b781-18736cdc848a"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""MoveUp"",
                     ""type"": ""Button"",
                     ""id"": ""9e4ef3dd-c742-4a90-bde6-cb6cbc5c0d71"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""MoveLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""83d66030-e1e3-4f62-889e-0ffe8b2f417d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""MoveDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d5ad3ed-9f1d-48de-90c1-80bd4be36e00"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""MoveRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""7585562e-7d07-4dd4-9525-dc56781f2642"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
@@ -40,7 +64,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""93d66bde-9d35-4068-99ad-30cd63071fef"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Remap"",
@@ -53,65 +77,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""Arrows"",
-                    ""id"": ""e2185457-d3dd-42d3-bf8d-3d2fa365a994"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""9dd8ff2e-e772-4fc0-8b83-65f603c5194e"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""22700245-85b8-4273-923b-3cca70fd3f80"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""9af9608d-2b90-4990-b962-530890b7b473"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""5bf3c453-1c92-4016-8332-75047db5a617"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""2ac64f71-f57a-454f-b515-087ef4b73b74"",
                     ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Input"",
@@ -122,7 +91,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""57041e35-00ba-4302-b83e-8df844dcf6d8"",
                     ""path"": ""<Keyboard>/r"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Reset"",
@@ -133,10 +102,54 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""45f4ef74-dbcd-464d-a388-443390de2fc6"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Remap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8361b6c-66e5-4b7d-8479-8dab07629862"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b3e45bd-5837-49a2-93de-69ce2446a98c"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f84e1993-7c8e-4136-be06-267739b5d71f"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""203d7fbe-e238-4fc6-8562-119fbc36e8a7"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MoveLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -197,7 +210,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
 }");
         // Actions
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
-        m_Actions_Move = m_Actions.FindAction("Move", throwIfNotFound: true);
+        m_Actions_MoveUp = m_Actions.FindAction("MoveUp", throwIfNotFound: true);
+        m_Actions_MoveLeft = m_Actions.FindAction("MoveLeft", throwIfNotFound: true);
+        m_Actions_MoveDown = m_Actions.FindAction("MoveDown", throwIfNotFound: true);
+        m_Actions_MoveRight = m_Actions.FindAction("MoveRight", throwIfNotFound: true);
         m_Actions_Input = m_Actions.FindAction("Input", throwIfNotFound: true);
         m_Actions_Reset = m_Actions.FindAction("Reset", throwIfNotFound: true);
         m_Actions_Remap = m_Actions.FindAction("Remap", throwIfNotFound: true);
@@ -253,7 +269,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
     // Actions
     private readonly InputActionMap m_Actions;
     private IActionsActions m_ActionsActionsCallbackInterface;
-    private readonly InputAction m_Actions_Move;
+    private readonly InputAction m_Actions_MoveUp;
+    private readonly InputAction m_Actions_MoveLeft;
+    private readonly InputAction m_Actions_MoveDown;
+    private readonly InputAction m_Actions_MoveRight;
     private readonly InputAction m_Actions_Input;
     private readonly InputAction m_Actions_Reset;
     private readonly InputAction m_Actions_Remap;
@@ -261,7 +280,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
     {
         private @InputMaster m_Wrapper;
         public ActionsActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Actions_Move;
+        public InputAction @MoveUp => m_Wrapper.m_Actions_MoveUp;
+        public InputAction @MoveLeft => m_Wrapper.m_Actions_MoveLeft;
+        public InputAction @MoveDown => m_Wrapper.m_Actions_MoveDown;
+        public InputAction @MoveRight => m_Wrapper.m_Actions_MoveRight;
         public InputAction @Input => m_Wrapper.m_Actions_Input;
         public InputAction @Reset => m_Wrapper.m_Actions_Reset;
         public InputAction @Remap => m_Wrapper.m_Actions_Remap;
@@ -274,9 +296,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_ActionsActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
+                @MoveUp.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveUp;
+                @MoveUp.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveUp;
+                @MoveUp.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveUp;
+                @MoveLeft.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveLeft;
+                @MoveLeft.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveLeft;
+                @MoveLeft.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveLeft;
+                @MoveDown.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveDown;
+                @MoveDown.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveDown;
+                @MoveDown.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveDown;
+                @MoveRight.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveRight;
+                @MoveRight.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveRight;
+                @MoveRight.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMoveRight;
                 @Input.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnInput;
                 @Input.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnInput;
                 @Input.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnInput;
@@ -290,9 +321,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Move.started += instance.OnMove;
-                @Move.performed += instance.OnMove;
-                @Move.canceled += instance.OnMove;
+                @MoveUp.started += instance.OnMoveUp;
+                @MoveUp.performed += instance.OnMoveUp;
+                @MoveUp.canceled += instance.OnMoveUp;
+                @MoveLeft.started += instance.OnMoveLeft;
+                @MoveLeft.performed += instance.OnMoveLeft;
+                @MoveLeft.canceled += instance.OnMoveLeft;
+                @MoveDown.started += instance.OnMoveDown;
+                @MoveDown.performed += instance.OnMoveDown;
+                @MoveDown.canceled += instance.OnMoveDown;
+                @MoveRight.started += instance.OnMoveRight;
+                @MoveRight.performed += instance.OnMoveRight;
+                @MoveRight.canceled += instance.OnMoveRight;
                 @Input.started += instance.OnInput;
                 @Input.performed += instance.OnInput;
                 @Input.canceled += instance.OnInput;
@@ -350,7 +390,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
     }
     public interface IActionsActions
     {
-        void OnMove(InputAction.CallbackContext context);
+        void OnMoveUp(InputAction.CallbackContext context);
+        void OnMoveLeft(InputAction.CallbackContext context);
+        void OnMoveDown(InputAction.CallbackContext context);
+        void OnMoveRight(InputAction.CallbackContext context);
         void OnInput(InputAction.CallbackContext context);
         void OnReset(InputAction.CallbackContext context);
         void OnRemap(InputAction.CallbackContext context);
