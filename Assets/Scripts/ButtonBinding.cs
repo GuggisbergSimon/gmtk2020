@@ -10,11 +10,18 @@ public class ButtonBinding : MonoBehaviour
     private Button button;
     private Text text;
 
-    // Action that will be binded
+    public enum Inputs
+    {
+        MoveUp, MoveDown, MoveLeft, MoveRight, Reset, Remap
+    }
+    
+    // Action that will be bound
+    public Inputs inputRef;
     public InputActionReference actionReference;
 
     // Action to rebind
     private InputAction actionToBind;
+    private InputAction action;
 
     public GameObject panel;
 
@@ -22,20 +29,22 @@ public class ButtonBinding : MonoBehaviour
     {
         // Action
         this.actionToBind = actionReference.action;
+        this.action = GameManager.Instance.Controls.Actions.Get().FindAction(inputRef.ToString());
         
         // UI
         this.button = this.GetComponent<Button>();
         this.text = this.GetComponentInChildren<Text>();
         text.text = actionReference.name;
-
+        
         // Process
-        this.button.onClick.AddListener(delegate { AddNewKey(actionToBind); } );
+        this.button.onClick.AddListener(delegate { AddNewKey(actionToBind, action); } );
     }
 
-    private void AddNewKey(InputAction actionToBind)
+    private void AddNewKey(InputAction actionToBind, InputAction action)
     {
         panel.GetComponent<PanelManager>().actionToBind = actionToBind;
-        panel.GetComponent<PanelManager>().mapping = this.GetComponentInParent<MappingCreator>();
+        panel.GetComponent<PanelManager>().action = action;
+        panel.GetComponent<PanelManager>().mapping = GameManager.Instance.MappingCreator;
         panel.SetActive(true);
     }
 }

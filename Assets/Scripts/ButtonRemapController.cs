@@ -12,7 +12,7 @@ public class ButtonRemapController : MonoBehaviour
     private void Start()
     {
         // First we are registering the "Actions" map and disabling it.
-        // We don't want no trouble while remaping.
+        // We don't want no trouble while remapping.
         actions = inputs.FindActionMap("Actions");
         actions.Disable();
 

@@ -12,7 +12,6 @@ public class MainMenu : MonoBehaviour
 
     public void LoadLevel(string level)
     {
-        // GameManager.Instance.LoadLevel(level);
-        SceneManager.LoadScene("Stache");
+        GameManager.Instance.LoadLevel(level);
     }
 }

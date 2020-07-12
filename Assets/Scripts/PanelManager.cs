@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class PanelManager : MonoBehaviour
 {
     public InputAction actionToBind;
+    public InputAction action;
 
     // Mapping Creator
     public MappingCreator mapping;
@@ -26,21 +27,20 @@ public class PanelManager : MonoBehaviour
         {
             if(entry.Value.Item1.Equals(actionToBind))
             {
-                AddButton(entry.Key.displayName, actionToBind, entry.Key);
+                AddButton(entry.Key.displayName, actionToBind, action, entry.Key);
             }
         }
 
-        AddButton("Add new key", actionToBind, null);
+        AddButton("Add new key", actionToBind, action, null);
     }
 
-    public void AddButton(string text, InputAction actionToBind, InputControl key)
+    public void AddButton(string text, InputAction actionToBind, InputAction action, InputControl key)
     {
         GameObject existingButton = Instantiate(addKeyPrefab, this.transform);
 
         existingButton.GetComponentInChildren<Text>().text = text;
-
         existingButton.GetComponent<ButtonBindingSub>().actionToBind = actionToBind;
-
+        existingButton.GetComponent<ButtonBindingSub>().action = action;
         existingButton.GetComponent<ButtonBindingSub>().key = key;
 
         buttons.Add(existingButton);

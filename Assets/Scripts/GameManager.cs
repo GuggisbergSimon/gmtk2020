@@ -5,19 +5,24 @@ public class GameManager : MonoBehaviour
 {
     private LevelManager _levelManager;
     private MappingCreator _mappingCreator;
+    private InputMaster _controls;
     public LevelManager LevelManager => _levelManager;
 
     public MappingCreator MappingCreator => _mappingCreator;
+
+    public InputMaster Controls => _controls;
 
     public static GameManager Instance { get; private set; }
 
     private void OnEnable()
     {
+        _controls.Enable();
         SceneManager.sceneLoaded += OnLevelFinishedLoadingScene;
     }
 
     private void OnDisable()
     {
+        _controls.Disable();
         SceneManager.sceneLoaded -= OnLevelFinishedLoadingScene;
     }
 
@@ -39,12 +44,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        _controls = new InputMaster();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
+            _controls = new InputMaster();
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }

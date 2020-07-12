@@ -15,6 +15,7 @@ public class ButtonBindingSub : MonoBehaviour
 
     // Rebind de tes morts
     public InputAction actionToBind;
+    public InputAction action;
     private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
 
     // State
@@ -31,7 +32,7 @@ public class ButtonBindingSub : MonoBehaviour
 
         this.defaultText = this.text.text;
 
-        this.mapping = this.transform.parent.parent.GetComponentInParent<MappingCreator>();  // Oui bon
+        this.mapping = GameManager.Instance.MappingCreator;  // Oui bon
 
         button.onClick.AddListener(delegate
         {
@@ -79,7 +80,9 @@ public class ButtonBindingSub : MonoBehaviour
 
         mapping.AddAction(key, actionToBind);
 
-        actionToBind.AddBinding((KeyControl) key);
+        //RIP decent programming practices
+        //actionToBind.AddBinding(key);
+        action.AddBinding(key);
 
         text.text = m_RebindOperation.selectedControl.displayName;
 
@@ -88,6 +91,6 @@ public class ButtonBindingSub : MonoBehaviour
         m_RebindOperation.Dispose();
         m_RebindOperation = null;
 
-        this.GetComponentInParent<PanelManager>().AddButton("Add new key", actionToBind, null);
+        this.GetComponentInParent<PanelManager>().AddButton("Add new key", actionToBind, action, null);
     }
 }

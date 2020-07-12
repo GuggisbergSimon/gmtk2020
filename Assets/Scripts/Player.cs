@@ -42,31 +42,16 @@ public class Player : MonoBehaviour
         _sourceItem.outputAudioMixerGroup = soundGroup;
     }
 
-    InputMaster controls;
-
-    // Enable and disable when waked up.
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Disable();
-    }
-
     private void Awake()
     {
-        // We have to add our controls as a new set of controls.
-        controls = new InputMaster();
 
         // For each control, register an event/a function to do when the action is performed.
-        controls.Actions.MoveUp.performed += ctx => Move(ctx.action, ctx.control);
-        controls.Actions.MoveDown.performed += ctx => Move(ctx.action, ctx.control);
-        controls.Actions.MoveLeft.performed += ctx => Move(ctx.action, ctx.control);
-        controls.Actions.MoveRight.performed += ctx => Move(ctx.action, ctx.control);
-        controls.Actions.Reset.canceled += ctx => PlayerReset((float) ctx.duration);
-        controls.Actions.Remap.performed += ctx => Remap();
+        GameManager.Instance.Controls.Actions.MoveUp.performed += ctx => Move(ctx.action, ctx.control);
+        GameManager.Instance.Controls.Actions.MoveDown.performed += ctx => Move(ctx.action, ctx.control);
+        GameManager.Instance.Controls.Actions.MoveLeft.performed += ctx => Move(ctx.action, ctx.control);
+        GameManager.Instance.Controls.Actions.MoveRight.performed += ctx => Move(ctx.action, ctx.control);
+        GameManager.Instance.Controls.Actions.Reset.canceled += ctx => PlayerReset((float) ctx.duration);
+        GameManager.Instance.Controls.Actions.Remap.performed += ctx => Remap();
     }
 
     private void Move(InputAction action, InputControl key)
@@ -104,7 +89,7 @@ public class Player : MonoBehaviour
         Debug.Log("Remap");
 
         // Call the remap menu
-        // controls.Actions.MoveUp.AddBinding(InputSystem.GetDevice<Keyboard>().eKey);
+        GameManager.Instance.Controls.Actions.MoveUp.AddBinding(InputSystem.GetDevice<Keyboard>().eKey);
     }
 
     IEnumerator Moving(InputAction action, InputControl key)
@@ -189,8 +174,8 @@ public class Player : MonoBehaviour
             yield return null;
         }
         
-        GameManager.Instance.MappingCreator.ConsumeKey(key);
-        GameManager.Instance.MappingCreator.ApplyInputBinding();
+        //GameManager.Instance.MappingCreator.ConsumeKey(key);
+        //GameManager.Instance.MappingCreator.ApplyInputBinding();
         transform.position = nextPos;
         if (spriteBoxObj.gameObject.activeSelf)
         {
