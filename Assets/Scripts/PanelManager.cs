@@ -22,15 +22,18 @@ public class PanelManager : MonoBehaviour
     {
         buttons = new List<GameObject>();
 
-        foreach (KeyValuePair<KeyControl, Tuple<InputAction, bool>> entry in mapping.mapping)
+        foreach (KeyValuePair<InputControl, Tuple<InputAction, bool>> entry in mapping.mapping)
         {
-            AddButton(entry.Key.displayName, actionToBind, true);
+            if(entry.Value.Item1.Equals(actionToBind))
+            {
+                AddButton(entry.Key.displayName, actionToBind, entry.Key);
+            }
         }
 
-        AddButton("Add new key", actionToBind, false);
+        AddButton("Add new key", actionToBind, null);
     }
 
-    public void AddButton(string text, InputAction actionToBind, bool isKey)
+    public void AddButton(string text, InputAction actionToBind, InputControl key)
     {
         GameObject existingButton = Instantiate(addKeyPrefab, this.transform);
 
@@ -38,7 +41,7 @@ public class PanelManager : MonoBehaviour
 
         existingButton.GetComponent<ButtonBindingSub>().actionToBind = actionToBind;
 
-        existingButton.GetComponent<ButtonBindingSub>().isKey = isKey;
+        existingButton.GetComponent<ButtonBindingSub>().key = key;
 
         buttons.Add(existingButton);
     }

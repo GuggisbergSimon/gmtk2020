@@ -23,7 +23,7 @@ public class ButtonRemapController : MonoBehaviour
     private void ConfirmRemap()
     {
         // Apply the binding
-        mapping.ApplyInputBinding();
+        //mapping.ApplyInputBinding();
 
         // Enable control again.
         actions.Enable();

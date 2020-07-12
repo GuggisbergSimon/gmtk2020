@@ -22,7 +22,7 @@ public class ButtonBinding : MonoBehaviour
     {
         // Action
         this.actionToBind = actionReference.action;
-
+        
         // UI
         this.button = this.GetComponent<Button>();
         this.text = this.GetComponentInChildren<Text>();

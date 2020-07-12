@@ -58,5 +58,6 @@ public class Player : MonoBehaviour
         Debug.Log("Remap");
 
         // Call the remap menu
+        // controls.Actions.MoveUp.AddBinding(InputSystem.GetDevice<Keyboard>().eKey);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
 public class ButtonBindingSub : MonoBehaviour
@@ -17,7 +18,10 @@ public class ButtonBindingSub : MonoBehaviour
     private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
 
     // State
-    public bool isKey;
+    public InputControl key;
+
+    // Mapping
+    private MappingCreator mapping;
 
     private void Start()
     {
@@ -25,19 +29,31 @@ public class ButtonBindingSub : MonoBehaviour
         this.button = this.GetComponent<Button>();
         this.text = this.GetComponentInChildren<Text>();
 
-        if(this.isKey)
-        {
-            button.onClick.AddListener(delegate { RemoveKey(name); });
-        } else
-        {
-            button.onClick.AddListener(delegate { AssignKey(name); });
-        }
-
         this.defaultText = this.text.text;
+
+        this.mapping = this.transform.parent.parent.GetComponentInParent<MappingCreator>();  // Oui bon
+
+        button.onClick.AddListener(delegate
+        {
+            DoAction();
+        });
     }
 
-    private void RemoveKey(string name)
+    private void DoAction()
     {
+        if (this.key != null)
+        {
+            RemoveKey(this.key);
+        }
+        else
+        {
+            AssignKey(this.name);
+        }
+    }
+
+    private void RemoveKey(InputControl key)
+    {
+        mapping.RemoveKey(key);
         Destroy(this.gameObject);
     }
 
@@ -59,13 +75,19 @@ public class ButtonBindingSub : MonoBehaviour
 
     private void Complete()
     {
-        actionToBind.AddBinding(m_RebindOperation.selectedControl);
+        key = m_RebindOperation.selectedControl;
+
+        mapping.AddAction(key, actionToBind);
+
+        actionToBind.AddBinding((KeyControl) key);
+
         text.text = m_RebindOperation.selectedControl.displayName;
 
-        isKey = true;
         button.enabled = true;
 
         m_RebindOperation.Dispose();
         m_RebindOperation = null;
+
+        this.GetComponentInParent<PanelManager>().AddButton("Add new key", actionToBind, null);
     }
 }

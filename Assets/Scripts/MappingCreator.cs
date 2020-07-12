@@ -9,16 +9,16 @@ public class MappingCreator : MonoBehaviour
 {
     InputMaster controls;
     // Map: KeyControl -> (InputAction, bool usable), ...)
-    public Dictionary<KeyControl, Tuple<InputAction, bool>> mapping;
+    public Dictionary<InputControl, Tuple<InputAction, bool>> mapping;
 
     private void Start()
     {
-        this.mapping = new Dictionary<KeyControl, Tuple<InputAction, bool>>();
+        this.mapping = new Dictionary<InputControl, Tuple<InputAction, bool>>();
     }
 
-    public bool AddAction(KeyControl key, InputAction action)
+    public bool AddAction(InputControl key, InputAction action)
     {
-        if(mapping[key] != null)
+        if (!mapping.ContainsKey(key))
         {
             mapping[key] = Tuple.Create(action, true);
             return true;
@@ -27,22 +27,28 @@ public class MappingCreator : MonoBehaviour
         return false;
     }
 
-    public void ResetKey(KeyControl key)
+    public void RemoveKey(InputControl key)
     {
-        mapping[key] = null;
+        if(mapping.ContainsKey(key))
+        {
+            mapping.Remove(key);
+        }
     }
 
-    public void ConsumeKey(KeyControl key)
+    public void ConsumeKey(InputControl key)
     {
-        mapping[key] = Tuple.Create(mapping[key].Item1, false);
+        if(mapping.ContainsKey(key))
+        {
+            mapping[key] = Tuple.Create(mapping[key].Item1, false);
+        }
     }
 
-    public bool KeyIsUsable(KeyControl key)
+    public bool KeyIsUsable(InputControl key)
     {
         return mapping[key].Item2;
     }
 
-    public InputAction KeyAction(KeyControl key)
+    public InputAction KeyAction(InputControl key)
     {
         return mapping[key].Item1;
     }
@@ -52,9 +58,10 @@ public class MappingCreator : MonoBehaviour
         // TODO if needed
     }
 
+    // Do not use
     public void ApplyInputBinding()
     {
-        foreach(KeyValuePair<KeyControl, Tuple<InputAction, bool>> entry in mapping)
+        foreach(KeyValuePair<InputControl, Tuple<InputAction, bool>> entry in mapping)
         {
             if(entry.Value.Item2)
             {
