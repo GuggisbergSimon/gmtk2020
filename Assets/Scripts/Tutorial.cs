@@ -14,12 +14,8 @@ public class Tutorial : MonoBehaviour
         // KeyToAction()
     }
 
-    private void KeyToAction(InputControl key, InputAction actionToBind)
+    private void KeyToAction(KeyCode key, Action actionToBind)
     {
         GameManager.Instance.MappingCreator.AddAction(key, actionToBind);
-
-        //RIP decent programming practices
-        actionToBind.AddBinding(key);
-        //action.AddBinding(key);
     }
 }

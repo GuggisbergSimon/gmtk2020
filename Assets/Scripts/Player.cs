@@ -215,7 +215,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("omedetou");
                 // TODO
-                _winPanel.gameObject.SetActive(true);
+                _pauseMenu.ToggleWin(true);
             }
         }
 
