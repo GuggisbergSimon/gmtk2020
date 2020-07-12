@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class ButtonBinding : MonoBehaviour
 {
     // UI elements
     private Button button;
-    private Text text;
+    private TextMeshProUGUI text;
 
     public enum Inputs
     {
@@ -33,7 +34,7 @@ public class ButtonBinding : MonoBehaviour
         
         // UI
         this.button = this.GetComponent<Button>();
-        this.text = this.GetComponentInChildren<Text>();
+        this.text = this.GetComponentInChildren<TextMeshProUGUI>();
         text.text = actionReference.name;
         
         // Process
