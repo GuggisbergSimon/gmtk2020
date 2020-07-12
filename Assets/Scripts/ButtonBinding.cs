@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ButtonBinding : MonoBehaviour
@@ -18,33 +15,30 @@ public class ButtonBinding : MonoBehaviour
     
     // Action that will be bound
     public Inputs inputRef;
-    public InputActionReference actionReference;
+    public Action action;
 
     // Action to rebind
-    private InputAction actionToBind;
-    private InputAction action;
+    private Action actionToBind;
 
     public GameObject panel;
 
     private void Start()
     {
         // Action
-        this.actionToBind = actionReference.action;
-        this.action = GameManager.Instance.Controls.Actions.Get().FindAction(inputRef.ToString());
+        this.actionToBind = action;
         
         // UI
         this.button = this.GetComponent<Button>();
         this.text = this.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = actionReference.name;
+        text.text = action.ToString();
         
         // Process
-        this.button.onClick.AddListener(delegate { AddNewKey(actionToBind, action); } );
+        this.button.onClick.AddListener(delegate { AddNewKey(actionToBind); } );
     }
 
-    private void AddNewKey(InputAction actionToBind, InputAction action)
+    private void AddNewKey(Action actionToBind)
     {
         panel.GetComponent<PanelManager>().actionToBind = actionToBind;
-        panel.GetComponent<PanelManager>().action = action;
         panel.SetActive(true);
     }
 }

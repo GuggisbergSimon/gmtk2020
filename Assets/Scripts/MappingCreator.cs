@@ -1,33 +1,65 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
+
+public enum Action {
+    Null, MoveUp, MoveDown, MoveLeft, MoveRight, Reset, Remap
+}
 
 public class MappingCreator : MonoBehaviour
 {
-    InputMaster controls;
-    // Map: KeyControl -> (InputAction, bool usable), ...)
-    public Dictionary<InputControl, Tuple<InputAction, bool>> mapping;
+    public Dictionary<KeyCode, Tuple<Action, bool>> mapping;
+    private Dictionary<KeyCode, Tuple<Action, bool>> mappingCopy;
+
+
+    private void Awake()
+    {
+        mapping = new Dictionary<KeyCode, Tuple<Action, bool>>();
+        AddAction(KeyCode.UpArrow, Action.MoveUp);
+        AddAction(KeyCode.DownArrow, Action.MoveDown);
+        AddAction(KeyCode.RightArrow, Action.MoveRight);
+        AddAction(KeyCode.LeftArrow, Action.MoveLeft);
+        AddAction(KeyCode.R, Action.Reset);
+        AddAction(KeyCode.Space, Action.Remap);
+    }
 
     private void Start()
     {
-        this.mapping = new Dictionary<InputControl, Tuple<InputAction, bool>>();
+        Setup();
     }
 
-    public bool AddAction(InputControl key, InputAction action)
+    public void Setup()
     {
-        if (!mapping.ContainsKey(key))
-        {
-            mapping[key] = Tuple.Create(action, true);
-            return true;
-        }
-
-        return false;
     }
 
-    public void RemoveKey(InputControl key)
+    private void OnEnable()
+    {
+        //todo test
+        mappingCopy = new Dictionary<KeyCode, Tuple<Action, bool>>();
+        foreach (var entry in mapping)
+        {
+            mappingCopy.Add(entry.Key, entry.Value);
+        }
+    }
+
+    public void Copy()
+    {
+        mapping = new Dictionary<KeyCode, Tuple<Action, bool>>();
+        foreach (var entry in mappingCopy)
+        {
+            mapping.Add(entry.Key, entry.Value);
+        }
+    }
+
+    public bool AddAction(KeyCode key, Action action)
+    {
+        if (mapping.ContainsKey(key)) return false;
+        mapping[key] = Tuple.Create(action, true);
+        return true;
+
+    }
+
+    public void RemoveKey(KeyCode key)
     {
         if(mapping.ContainsKey(key))
         {
@@ -35,7 +67,7 @@ public class MappingCreator : MonoBehaviour
         }
     }
 
-    public void ConsumeKey(InputControl key)
+    public void ConsumeKey(KeyCode key)
     {
         if(mapping.ContainsKey(key))
         {
@@ -43,12 +75,12 @@ public class MappingCreator : MonoBehaviour
         }
     }
 
-    public bool KeyIsUsable(InputControl key)
+    public bool KeyIsUsable(KeyCode key)
     {
         return mapping[key].Item2;
     }
 
-    public InputAction KeyAction(InputControl key)
+    public Action KeyAction(KeyCode key)
     {
         return mapping[key].Item1;
     }
@@ -61,11 +93,11 @@ public class MappingCreator : MonoBehaviour
     // Do not use
     public void ApplyInputBinding()
     {
-        foreach(KeyValuePair<InputControl, Tuple<InputAction, bool>> entry in mapping)
+        foreach(KeyValuePair<KeyCode, Tuple<Action, bool>> entry in mapping)
         {
             if(entry.Value.Item2)
             {
-                entry.Value.Item1.AddBinding(entry.Key);
+                //entry.Value.Item1.AddBinding(entry.Key);
             }
         }
     }

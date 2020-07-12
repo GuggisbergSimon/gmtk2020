@@ -13,7 +13,6 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        //todo save state of controls here for soft reset
         //resets tilemap bounds in case someone messed up while editing one
         map.CompressBounds();
         flagMap.CompressBounds();

@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -72,14 +70,19 @@ public class GameManager : MonoBehaviour
     {
         if (_mappingCreator.mapping.Count == 0)
         {
-            _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().upArrowKey, _controls.Actions.Get().FindAction("MoveUp"));
+            /*_mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().upArrowKey, _controls.Actions.Get().FindAction("MoveUp"));
             _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().leftArrowKey, _controls.Actions.Get().FindAction("MoveLeft"));
             _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().downArrowKey, _controls.Actions.Get().FindAction("MoveDown"));
             _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().rightArrowKey, _controls.Actions.Get().FindAction("MoveRight"));
             _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().rKey, _controls.Actions.Get().FindAction("Reset"));
             _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().spaceKey, _controls.Actions.Get().FindAction("Remap"));
-            _mappingCreator.ApplyInputBinding();
+            _mappingCreator.ApplyInputBinding();*/
         }
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LoadLevel(string nameLevel)
