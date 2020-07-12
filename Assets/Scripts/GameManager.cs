@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private MappingCreator _mappingCreator;
     private InputMaster _controls;
     private Player _player;
+    private AudioSource _source;
     public LevelManager LevelManager => _levelManager;
 
     public MappingCreator MappingCreator => _mappingCreator;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
+        _source = GetComponent<AudioSource>();
         Setup();
     }
 
@@ -83,5 +85,17 @@ public class GameManager : MonoBehaviour
 #else
 		Application.Quit();
 #endif
+    }
+
+    public void PlayMusic(bool toggle)
+    {
+        if (toggle)
+        {
+            _source.Play();
+        }
+        else
+        {
+            _source.Stop();
+        }
     }
 }

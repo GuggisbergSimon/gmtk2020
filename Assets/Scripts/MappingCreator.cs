@@ -14,6 +14,11 @@ public class MappingCreator : MonoBehaviour
 
     private void Awake()
     {
+        Setup();
+    }
+
+    public void Setup()
+    {
         mapping = new Dictionary<KeyCode, Tuple<Action, bool>>();
         AddAction(KeyCode.UpArrow, Action.MoveUp);
         AddAction(KeyCode.DownArrow, Action.MoveDown);
@@ -23,18 +28,8 @@ public class MappingCreator : MonoBehaviour
         AddAction(KeyCode.Space, Action.Remap);
     }
 
-    private void Start()
-    {
-        Setup();
-    }
-
-    public void Setup()
-    {
-    }
-
     private void OnEnable()
     {
-        //todo test
         mappingCopy = new Dictionary<KeyCode, Tuple<Action, bool>>();
         foreach (var entry in mapping)
         {

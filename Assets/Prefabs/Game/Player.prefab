@@ -155,7 +155,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 99ac3c8eb63263c458cf7722645df054, type: 3}
   - {fileID: 21300000, guid: 5571ebc1455fd194f83060736e17beb0, type: 3}
   - {fileID: 21300000, guid: 1c3eea206c7a2f8469dfe223837db1fa, type: 3}
-  hardResetThreshold: 2
+  hardResetThreshold: 1
   soundGroup: {fileID: -1712451469036179099, guid: 155c12706128b8944bc3ac8beb722311,
     type: 2}
   buttonUsed:
@@ -193,6 +193,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c77079290a6922348b00831ae3d67be9, type: 3}
   - {fileID: 8300000, guid: 3ca60f5e56cc1ef46af5c5475df4c1ea, type: 3}
   - {fileID: 8300000, guid: babbbc64808839948827a01a17906d83, type: 3}
+  rewindNoise: {fileID: 8300000, guid: b0c0539c56bb46f41a8fc2bba6647690, type: 3}
 --- !u!1 &5117764953682807657
 GameObject:
   m_ObjectHideFlags: 0

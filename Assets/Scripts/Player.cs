@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] moveMetal = null;
     [SerializeField] private AudioClip[] moveTrash = null;
     [SerializeField] private AudioClip[] robotNoise = null;
+    [SerializeField] private AudioClip rewindNoise = null;
     private bool _canMove = true;
     private Coroutine _resetCoroutine;
 
@@ -96,11 +97,13 @@ public class Player : MonoBehaviour
 
     private IEnumerator Resetting(KeyCode key)
     {
+        _sourceRobot.PlayOneShot(rewindNoise);
         for (float i = 0f; i < hardResetThreshold; i+=Time.deltaTime)
         {
             if (!Input.GetKey(key) || Input.GetKeyUp(key))
             {
                 //softreset
+                _sourceRobot.Stop();
                 GameManager.Instance.MappingCreator.Copy();
                 GameManager.Instance.LoadLevel();
                 yield break;
@@ -109,6 +112,8 @@ public class Player : MonoBehaviour
             yield return null;
         }
         //hardreset
+        
+        GameManager.Instance.PlayMusic(false);
         GameManager.Instance.MappingCreator.Setup();
         GameManager.Instance.LoadLevel("MainMenu");
     }
@@ -211,8 +216,8 @@ public class Player : MonoBehaviour
             spriteBoxObj.gameObject.SetActive(false);
             if (_levelManager.CheckFlags())
             {
-                Debug.Log("omedetou");
-                // TODO
+                _canMove = false;
+                enabled = false;
                 _pauseMenu.ToggleWin(true);
             }
         }
