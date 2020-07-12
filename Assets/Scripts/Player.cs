@@ -2,8 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -23,23 +21,27 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] moveTrash = null;
     [SerializeField] private AudioClip[] robotNoise = null;
     private bool _canMove = true;
+    private Coroutine _resetCoroutine;
 
     public bool CanMove
     {
         get => _canMove;
         set => _canMove = value;
     }
+
     private LevelManager _levelManager;
     private Animator _animator;
     private AudioSource _sourceRobot;
     private AudioSource _sourceItem;
     private PauseMenu _pauseMenu;
+    private WinPanel _winPanel;
 
     private void Start()
     {
         _levelManager = GameManager.Instance.LevelManager;
         _animator = GetComponent<Animator>();
-        _pauseMenu =  FindObjectOfType<PauseMenu>();
+        _pauseMenu = FindObjectOfType<PauseMenu>();
+        _winPanel = FindObjectOfType<WinPanel>();
         //audiosource setup
         _sourceRobot = gameObject.AddComponent<AudioSource>();
         _sourceRobot.playOnAwake = false;
@@ -51,51 +53,67 @@ public class Player : MonoBehaviour
         _sourceItem.outputAudioMixerGroup = soundGroup;
     }
 
-    private void Awake()
+    private void Update()
     {
-        // For each control, register an event/a function to do when the action is performed.
-        GameManager.Instance.Controls.Actions.MoveUp.performed += ctx => Move(ctx.action, ctx.control);
-        GameManager.Instance.Controls.Actions.MoveDown.performed += ctx => Move(ctx.action, ctx.control);
-        GameManager.Instance.Controls.Actions.MoveLeft.performed += ctx => Move(ctx.action, ctx.control);
-        GameManager.Instance.Controls.Actions.MoveRight.performed += ctx => Move(ctx.action, ctx.control);
-        GameManager.Instance.Controls.Actions.Reset.canceled += ctx => PlayerReset((float) ctx.duration);
-        GameManager.Instance.Controls.Actions.Remap.performed += ctx => Remap();
-    }
-
-    private void Move(InputAction action, InputControl key)
-    {
-        //todo properly AddAction in MappingCreator in order to have
-        if (_canMove)
+        if (!_canMove || !Input.anyKeyDown) return;
+        foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
         {
-            if (GameManager.Instance.MappingCreator.KeyIsUsable(key))
+            if (!Input.GetKeyDown(vKey) || !GameManager.Instance.MappingCreator.mapping.ContainsKey(vKey)) continue;
+            Action currentAction = GameManager.Instance.MappingCreator.mapping[vKey].Item1;
+            if (GameManager.Instance.MappingCreator.mapping[vKey].Item1 == Action.Null) continue;
+            if (currentAction.ToString().StartsWith("Move"))
             {
-                StartCoroutine(Moving(action, key));
+                Move(currentAction, vKey);
             }
-            else
+            else if (currentAction == Action.Remap)
             {
-                _sourceRobot.PlayOneShot(buttonUsed[Random.Range(0, buttonUsed.Length)]);
+                Remap();
+            }
+            else if (currentAction == Action.Reset)
+            {
+                if (_resetCoroutine != null)
+                {
+                    StopCoroutine(_resetCoroutine);
+                }
+
+                _resetCoroutine = StartCoroutine(Resetting(vKey));
             }
         }
     }
 
-    private void PlayerReset(float duration)
+    private void Move(Action action, KeyCode key)
     {
-        Debug.Log("Reset: " + duration);
-
-        if (duration > hardResetThreshold)
+        if (GameManager.Instance.MappingCreator.KeyIsUsable(key))
         {
-            Debug.Log("HARD RESET !!!");
+            StartCoroutine(Moving(action, key));
         }
         else
         {
-            Debug.Log("Soft reset");
+            _sourceRobot.PlayOneShot(buttonUsed[Random.Range(0, buttonUsed.Length)]);
         }
+    }
+
+    private IEnumerator Resetting(KeyCode key)
+    {
+        for (float i = 0f; i < hardResetThreshold; i+=Time.deltaTime)
+        {
+            if (!Input.GetKey(key) || Input.GetKeyUp(key))
+            {
+                //softreset
+                GameManager.Instance.MappingCreator.Copy();
+                GameManager.Instance.LoadLevel();
+                yield break;
+            }
+
+            yield return null;
+        }
+        //hardreset
+        GameManager.Instance.MappingCreator.Setup();
+        GameManager.Instance.LoadLevel("MainMenu");
     }
 
     private void Remap()
     {
-        Debug.Log("Remap");
-
         // Call the remap menu
         if (_canMove)
         {
@@ -103,10 +121,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator Moving(InputAction action, InputControl key)
+    IEnumerator Moving(Action action, KeyCode key)
     {
-        Vector2 input = new Vector2(action.name.Equals("MoveRight") ? 1 : action.name.Equals("MoveLeft") ? -1 : 0,
-            action.name.Equals("MoveUp") ? 1 : action.name.Equals("MoveDown") ? -1 : 0);
+        Vector2 input = new Vector2(action == Action.MoveRight ? 1 : action == Action.MoveLeft ? -1 : 0,
+            action == Action.MoveUp ? 1 : action == Action.MoveDown ? -1 : 0);
 
         Vector3 move =
             Vector3.right * (input.x * _levelManager.Map.cellSize.x) +
@@ -166,6 +184,7 @@ public class Player : MonoBehaviour
                 {
                     _sourceItem.PlayOneShot(moveTrash[Random.Range(0, moveTrash.Length)]);
                 }
+
                 spriteBoxObj.transform.localPosition = move;
                 spriteBoxObj.gameObject.SetActive(true);
             }
@@ -174,6 +193,7 @@ public class Player : MonoBehaviour
         {
             _sourceItem.PlayOneShot(scrubFloor[Random.Range(0, scrubFloor.Length)]);
         }
+
         _sourceRobot.PlayOneShot(moveRobot[Random.Range(0, moveRobot.Length)]);
 
         _canMove = false;
@@ -184,9 +204,8 @@ public class Player : MonoBehaviour
             transform.position = pos + Vector3.Lerp(Vector3.zero, move, t);
             yield return null;
         }
-        
+
         GameManager.Instance.MappingCreator.ConsumeKey(key);
-        GameManager.Instance.MappingCreator.ApplyInputBinding();
         transform.position = nextPos;
         if (spriteBoxObj.gameObject.activeSelf)
         {
@@ -195,7 +214,8 @@ public class Player : MonoBehaviour
             if (_levelManager.CheckFlags())
             {
                 Debug.Log("omedetou");
-                //todo win
+                // TODO
+                _pauseMenu.ToggleWin(true);
             }
         }
 

@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ButtonBindingSub : MonoBehaviour
@@ -11,12 +10,10 @@ public class ButtonBindingSub : MonoBehaviour
     private string defaultText;
 
     // Rebind de tes morts
-    public InputAction actionToBind;
-    public InputAction action;
-    private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
+    public Action actionToBind;
 
     // State
-    public InputControl key;
+    public KeyCode key;
 
     private void Start()
     {
@@ -30,11 +27,12 @@ public class ButtonBindingSub : MonoBehaviour
         {
             DoAction();
         });
+        enabled = false;
     }
 
     private void DoAction()
     {
-        if (this.key != null)
+        if (this.key != KeyCode.Escape)
         {
             RemoveKey(this.key);
         }
@@ -44,7 +42,7 @@ public class ButtonBindingSub : MonoBehaviour
         }
     }
 
-    private void RemoveKey(InputControl key)
+    private void RemoveKey(KeyCode key)
     {
         GameManager.Instance.MappingCreator.RemoveKey(key);
         Destroy(this.gameObject);
@@ -53,36 +51,30 @@ public class ButtonBindingSub : MonoBehaviour
     private void AssignKey(string name)
     {
         button.enabled = false;
-
+        enabled = true;
         text.text = "Press button/stick for " + name;
+    }
 
-        m_RebindOperation?.Dispose();
-        m_RebindOperation = actionToBind.PerformInteractiveRebinding()
-            .WithRebindAddingNewBinding()
-            .WithControlsExcluding("<Mouse>/position")
-            .WithControlsExcluding("<Mouse>/delta")
-            .OnMatchWaitForAnother(0.1f)
-            .OnComplete(operation => Complete());
-        m_RebindOperation.Start();
+    private void Update()
+    {
+        if (!Input.anyKeyDown) return;
+        foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
+        {
+            if (!Input.GetKeyDown(vKey) || Input.GetKeyDown(KeyCode.Escape)) continue;
+            key = vKey;
+            enabled = false;
+            Complete();
+        }
     }
 
     private void Complete()
     {
-        key = m_RebindOperation.selectedControl;
-
         GameManager.Instance.MappingCreator.AddAction(key, actionToBind);
-
-        //RIP decent programming practices
-        //actionToBind.AddBinding(key);
-        action.AddBinding(key);
-
-        text.text = m_RebindOperation.selectedControl.displayName;
+        Debug.Log(key);
+        text.text = key.ToString();
 
         button.enabled = true;
 
-        m_RebindOperation.Dispose();
-        m_RebindOperation = null;
-
-        this.GetComponentInParent<PanelManager>().AddButton("Add new key", actionToBind, action, null);
+        this.GetComponentInParent<PanelManager>().AddButton("Add new key", actionToBind, KeyCode.Escape);
     }
 }
