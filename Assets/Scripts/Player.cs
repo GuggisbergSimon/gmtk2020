@@ -34,12 +34,14 @@ public class Player : MonoBehaviour
     private AudioSource _sourceRobot;
     private AudioSource _sourceItem;
     private PauseMenu _pauseMenu;
+    private WinPanel _winPanel;
 
     private void Start()
     {
         _levelManager = GameManager.Instance.LevelManager;
         _animator = GetComponent<Animator>();
         _pauseMenu = FindObjectOfType<PauseMenu>();
+        _winPanel = FindObjectOfType<WinPanel>();
         //audiosource setup
         _sourceRobot = gameObject.AddComponent<AudioSource>();
         _sourceRobot.playOnAwake = false;
@@ -212,7 +214,8 @@ public class Player : MonoBehaviour
             if (_levelManager.CheckFlags())
             {
                 Debug.Log("omedetou");
-                //todo win
+                // TODO
+                _winPanel.gameObject.SetActive(true);
             }
         }
 

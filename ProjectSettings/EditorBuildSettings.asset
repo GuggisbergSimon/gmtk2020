@@ -14,4 +14,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ataor.unity
     guid: 49d1671b7786b7f48a001556c61890c2
+  - enabled: 1
+    path: Assets/Scenes/tuto/tuto_1.unity
+    guid: ca4179632efd3e44ba3528e901a2562c
+  - enabled: 1
+    path: Assets/Scenes/levels/level_0.unity
+    guid: 3cd7a246598c4dc46abe118f5bf976dd
+  - enabled: 1
+    path: Assets/Scenes/levels/level_1.unity
+    guid: 3aa80aee5b603434ea3e085d0d934f61
+  - enabled: 1
+    path: Assets/Scenes/tuto/tuto_2.unity
+    guid: a6ec1ed39b37d2d49bc9f4cf75c53d16
+  - enabled: 1
+    path: Assets/Scenes/tuto/tuto_3.unity
+    guid: 59da8725f1a445649a8ae4478883c874
+  - enabled: 1
+    path: Assets/Scenes/tuto/tuto_4.unity
+    guid: f0aae5a70404ad149972c35219dc6a47
+  - enabled: 1
+    path: Assets/Scenes/tuto/tuto_5.unity
+    guid: fa658acc1af533b4ba1cea57151a4eea
+  - enabled: 1
+    path: Assets/Scenes/tuto/tuto_6.unity
+    guid: 4528a79b65143d84ba55c7e90b0df881
+  - enabled: 1
+    path: Assets/Scenes/levels/level_2.unity
+    guid: 2bd5298e308873f4a9f512a203fc01bc
   m_configObjects: {}
