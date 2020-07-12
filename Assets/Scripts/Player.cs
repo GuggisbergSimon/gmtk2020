@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
             else if (currentAction == Action.Remap)
             {
                 Remap();
+                GameManager.Instance.MappingCreator.ConsumeKey(vKey);
             }
             else if (currentAction == Action.Reset)
             {
@@ -115,10 +116,7 @@ public class Player : MonoBehaviour
     private void Remap()
     {
         // Call the remap menu
-        if (_canMove)
-        {
-            _pauseMenu.ToggleRemap(true);
-        }
+        _pauseMenu.ToggleRemap(true);
     }
 
     IEnumerator Moving(Action action, KeyCode key)

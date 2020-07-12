@@ -52,7 +52,7 @@ public class ButtonBindingSub : MonoBehaviour
     {
         button.enabled = false;
         enabled = true;
-        text.text = "Press button/stick for " + name;
+        text.text = "Press a key";
     }
 
     private void Update()
@@ -69,11 +69,18 @@ public class ButtonBindingSub : MonoBehaviour
 
     private void Complete()
     {
-        GameManager.Instance.MappingCreator.AddAction(key, actionToBind);
-        Debug.Log(key);
-        text.text = key.ToString();
+        if (GameManager.Instance.MappingCreator.KeyIsUsable(key))
+        {
+            GameManager.Instance.MappingCreator.AddAction(key, actionToBind);
+            Debug.Log(key);
+            text.text = key.ToString();
 
-        button.enabled = true;
+            button.enabled = true;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
 
         this.GetComponentInParent<PanelManager>().AddButton("Add new key", actionToBind, KeyCode.Escape);
     }
