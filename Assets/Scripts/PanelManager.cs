@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -35,7 +36,7 @@ public class PanelManager : MonoBehaviour
     {
         GameObject existingButton = Instantiate(addKeyPrefab, this.transform);
 
-        existingButton.GetComponentInChildren<Text>().text = text;
+        existingButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
         existingButton.GetComponent<ButtonBindingSub>().actionToBind = actionToBind;
         existingButton.GetComponent<ButtonBindingSub>().action = action;
         existingButton.GetComponent<ButtonBindingSub>().key = key;

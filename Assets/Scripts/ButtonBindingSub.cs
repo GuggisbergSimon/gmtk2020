@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditorInternal;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
 public class ButtonBindingSub : MonoBehaviour
 {
     // UI elements
     private Button button;
-    public Text text;
+    public TextMeshProUGUI text;
     private string defaultText;
 
     // Rebind de tes morts
@@ -25,7 +22,7 @@ public class ButtonBindingSub : MonoBehaviour
     {
         // UI
         this.button = this.GetComponent<Button>();
-        this.text = this.GetComponentInChildren<Text>();
+        this.text = this.GetComponentInChildren<TextMeshProUGUI>();
 
         this.defaultText = this.text.text;
 
