@@ -1177,7 +1177,6 @@ MonoBehaviour:
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
-  mapping: {fileID: 0}
   addKeyPrefab: {fileID: 7999923735141819018, guid: ee9dc663f72853c4bbe01a9d43134112,
     type: 3}
 --- !u!1 &773321296
