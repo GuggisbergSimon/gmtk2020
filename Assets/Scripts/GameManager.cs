@@ -6,11 +6,14 @@ public class GameManager : MonoBehaviour
     private LevelManager _levelManager;
     private MappingCreator _mappingCreator;
     private InputMaster _controls;
+    private Player _player;
     public LevelManager LevelManager => _levelManager;
 
     public MappingCreator MappingCreator => _mappingCreator;
 
     public InputMaster Controls => _controls;
+
+    public Player Player => _player;
 
     public static GameManager Instance { get; private set; }
 
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
         _levelManager = FindObjectOfType<LevelManager>();
         _mappingCreator = FindObjectOfType<MappingCreator>();
         //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        //_player = FindObjectOfType<PlayerController>();
+        _player = FindObjectOfType<Player>();
         //_uiManager = FindObjectOfType<UIManager>();
     }
 
