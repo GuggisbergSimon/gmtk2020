@@ -21,9 +21,6 @@ public class ButtonBindingSub : MonoBehaviour
     // State
     public InputControl key;
 
-    // Mapping
-    private MappingCreator mapping;
-
     private void Start()
     {
         // UI
@@ -31,8 +28,6 @@ public class ButtonBindingSub : MonoBehaviour
         this.text = this.GetComponentInChildren<Text>();
 
         this.defaultText = this.text.text;
-
-        this.mapping = GameManager.Instance.MappingCreator;  // Oui bon
 
         button.onClick.AddListener(delegate
         {
@@ -54,7 +49,7 @@ public class ButtonBindingSub : MonoBehaviour
 
     private void RemoveKey(InputControl key)
     {
-        mapping.RemoveKey(key);
+        GameManager.Instance.MappingCreator.RemoveKey(key);
         Destroy(this.gameObject);
     }
 
@@ -78,7 +73,7 @@ public class ButtonBindingSub : MonoBehaviour
     {
         key = m_RebindOperation.selectedControl;
 
-        mapping.AddAction(key, actionToBind);
+        GameManager.Instance.MappingCreator.AddAction(key, actionToBind);
 
         //RIP decent programming practices
         //actionToBind.AddBinding(key);

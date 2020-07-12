@@ -44,7 +44,6 @@ public class ButtonBinding : MonoBehaviour
     {
         panel.GetComponent<PanelManager>().actionToBind = actionToBind;
         panel.GetComponent<PanelManager>().action = action;
-        panel.GetComponent<PanelManager>().mapping = GameManager.Instance.MappingCreator;
         panel.SetActive(true);
     }
 }

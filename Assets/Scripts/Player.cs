@@ -23,15 +23,24 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] moveTrash = null;
     [SerializeField] private AudioClip[] robotNoise = null;
     private bool _canMove = true;
+
+    public bool CanMove
+    {
+        get => _canMove;
+        set => _canMove = value;
+    }
     private LevelManager _levelManager;
     private Animator _animator;
     private AudioSource _sourceRobot;
     private AudioSource _sourceItem;
+    private PauseMenu _pauseMenu;
 
     private void Start()
     {
         _levelManager = GameManager.Instance.LevelManager;
         _animator = GetComponent<Animator>();
+        _pauseMenu =  FindObjectOfType<PauseMenu>();
+        //audiosource setup
         _sourceRobot = gameObject.AddComponent<AudioSource>();
         _sourceRobot.playOnAwake = false;
         _sourceRobot.loop = false;
@@ -44,7 +53,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-
         // For each control, register an event/a function to do when the action is performed.
         GameManager.Instance.Controls.Actions.MoveUp.performed += ctx => Move(ctx.action, ctx.control);
         GameManager.Instance.Controls.Actions.MoveDown.performed += ctx => Move(ctx.action, ctx.control);
@@ -89,7 +97,10 @@ public class Player : MonoBehaviour
         Debug.Log("Remap");
 
         // Call the remap menu
-        GameManager.Instance.Controls.Actions.MoveUp.AddBinding(InputSystem.GetDevice<Keyboard>().eKey);
+        if (_canMove)
+        {
+            _pauseMenu.ToggleRemap(true);
+        }
     }
 
     IEnumerator Moving(InputAction action, InputControl key)
@@ -174,8 +185,8 @@ public class Player : MonoBehaviour
             yield return null;
         }
         
-        //GameManager.Instance.MappingCreator.ConsumeKey(key);
-        //GameManager.Instance.MappingCreator.ApplyInputBinding();
+        GameManager.Instance.MappingCreator.ConsumeKey(key);
+        GameManager.Instance.MappingCreator.ApplyInputBinding();
         transform.position = nextPos;
         if (spriteBoxObj.gameObject.activeSelf)
         {

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -6,11 +8,14 @@ public class GameManager : MonoBehaviour
     private LevelManager _levelManager;
     private MappingCreator _mappingCreator;
     private InputMaster _controls;
+    private Player _player;
     public LevelManager LevelManager => _levelManager;
 
     public MappingCreator MappingCreator => _mappingCreator;
 
     public InputMaster Controls => _controls;
+
+    public Player Player => _player;
 
     public static GameManager Instance { get; private set; }
 
@@ -38,8 +43,12 @@ public class GameManager : MonoBehaviour
         _levelManager = FindObjectOfType<LevelManager>();
         _mappingCreator = FindObjectOfType<MappingCreator>();
         //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        //_player = FindObjectOfType<PlayerController>();
+        _player = FindObjectOfType<Player>();
         //_uiManager = FindObjectOfType<UIManager>();
+    }
+
+    private void Start()
+    {
     }
 
     private void Awake()
@@ -57,6 +66,20 @@ public class GameManager : MonoBehaviour
         }
 
         Setup();
+    }
+
+    public void ValidateMapping()
+    {
+        if (_mappingCreator.mapping.Count == 0)
+        {
+            _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().upArrowKey, _controls.Actions.Get().FindAction("MoveUp"));
+            _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().leftArrowKey, _controls.Actions.Get().FindAction("MoveLeft"));
+            _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().downArrowKey, _controls.Actions.Get().FindAction("MoveDown"));
+            _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().rightArrowKey, _controls.Actions.Get().FindAction("MoveRight"));
+            _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().rKey, _controls.Actions.Get().FindAction("Reset"));
+            _mappingCreator.AddAction(InputSystem.GetDevice<Keyboard>().spaceKey, _controls.Actions.Get().FindAction("Remap"));
+            _mappingCreator.ApplyInputBinding();
+        }
     }
 
     public void LoadLevel(string nameLevel)
