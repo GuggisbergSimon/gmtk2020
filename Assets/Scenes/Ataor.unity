@@ -1529,6 +1529,21 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 386105802}
+    - target: {fileID: 2181817746022717878, guid: 49719f968c907124e888b381e4527961,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181817746022717878, guid: 49719f968c907124e888b381e4527961,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181817746022717878, guid: 49719f968c907124e888b381e4527961,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2181817746190408200, guid: 49719f968c907124e888b381e4527961,
         type: 3}
       propertyPath: m_LocalPosition.x
