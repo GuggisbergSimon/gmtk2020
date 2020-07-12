@@ -13,6 +13,20 @@ public class MainMenu : MonoBehaviour
         _source = GetComponent<AudioSource>();
     }
 
+    public string targetLevel;
+
+    public void StartLevel()
+    {
+        if(GameManager.Instance.tutorial)
+        {
+            GameManager.Instance.tutorial = false;
+            LoadLevel("tutorial_1");
+        } else
+        {
+            LoadLevel("level_0");
+        }
+    }
+
     public void QuitGame()
     {
         GameManager.Instance.QuitGame();

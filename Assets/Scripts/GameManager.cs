@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
+    public bool tutorial;
+
     private void OnEnable()
     {
         _controls.Enable();
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        tutorial = true;
     }
 
     private void Awake()
