@@ -7,7 +7,6 @@ public class ButtonRemapController : MonoBehaviour
     public Button ok;
     public InputActionAsset inputs;
     private InputActionMap actions;
-    public MappingCreator mapping;
 
     private void Start()
     {

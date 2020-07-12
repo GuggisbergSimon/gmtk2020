@@ -11,9 +11,6 @@ public class PanelManager : MonoBehaviour
     public InputAction actionToBind;
     public InputAction action;
 
-    // Mapping Creator
-    public MappingCreator mapping;
-
     // Prefab
     public GameObject addKeyPrefab;
 
@@ -22,10 +19,10 @@ public class PanelManager : MonoBehaviour
     private void OnEnable()
     {
         buttons = new List<GameObject>();
-
-        foreach (KeyValuePair<InputControl, Tuple<InputAction, bool>> entry in mapping.mapping)
+        
+        foreach (KeyValuePair<InputControl, Tuple<InputAction, bool>> entry in GameManager.Instance.MappingCreator.mapping)
         {
-            if(entry.Value.Item1.Equals(actionToBind))
+            if(entry.Value.Item1.Equals(actionToBind) && GameManager.Instance.MappingCreator.KeyIsUsable(entry.Key))
             {
                 AddButton(entry.Key.displayName, actionToBind, action, entry.Key);
             }

@@ -185,8 +185,8 @@ public class Player : MonoBehaviour
             yield return null;
         }
         
-        //GameManager.Instance.MappingCreator.ConsumeKey(key);
-        //GameManager.Instance.MappingCreator.ApplyInputBinding();
+        GameManager.Instance.MappingCreator.ConsumeKey(key);
+        GameManager.Instance.MappingCreator.ApplyInputBinding();
         transform.position = nextPos;
         if (spriteBoxObj.gameObject.activeSelf)
         {
