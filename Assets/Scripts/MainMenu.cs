@@ -11,9 +11,4 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.Instance.LoadLevel(level);
     }
-
-    public void ValidateMapping()
-    {
-        //GameManager.Instance.ValidateMapping();
-    }
 }
