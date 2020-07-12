@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: fbb887b8f27f128408d2f7d935649141
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Stache.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Ataor.unity
     guid: 49d1671b7786b7f48a001556c61890c2
   - enabled: 1
@@ -41,4 +41,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/levels/level_2.unity
     guid: 2bd5298e308873f4a9f512a203fc01bc
+  - enabled: 1
+    path: Assets/Scenes/levels/level_3.unity
+    guid: eddf50d37cef95b47bc672152d3cacd5
+  - enabled: 1
+    path: Assets/Scenes/levels/level_4.unity
+    guid: 47fc814833670a947825c8064fdb32ba
+  - enabled: 1
+    path: Assets/Scenes/levels/level_5.unity
+    guid: 3695642f6e28f2f4b98cafc08350adee
+  - enabled: 1
+    path: Assets/Scenes/levels/level_6.unity
+    guid: 60faa76158362e149a7fd70b2043673c
   m_configObjects: {}

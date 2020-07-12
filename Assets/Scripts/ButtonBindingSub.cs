@@ -69,10 +69,9 @@ public class ButtonBindingSub : MonoBehaviour
 
     private void Complete()
     {
-        if (GameManager.Instance.MappingCreator.KeyIsUsable(key))
+        if (!GameManager.Instance.MappingCreator.mapping.ContainsKey(key) || GameManager.Instance.MappingCreator.KeyIsUsable(key))
         {
             GameManager.Instance.MappingCreator.AddAction(key, actionToBind);
-            Debug.Log(key);
             text.text = key.ToString();
 
             button.enabled = true;

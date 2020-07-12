@@ -155,7 +155,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 99ac3c8eb63263c458cf7722645df054, type: 3}
   - {fileID: 21300000, guid: 5571ebc1455fd194f83060736e17beb0, type: 3}
   - {fileID: 21300000, guid: 1c3eea206c7a2f8469dfe223837db1fa, type: 3}
-  hardResetThreshold: 1
+  hardResetThreshold: 1.6
   soundGroup: {fileID: -1712451469036179099, guid: 155c12706128b8944bc3ac8beb722311,
     type: 2}
   buttonUsed:

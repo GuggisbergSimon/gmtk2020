@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
         if(GameManager.Instance.tutorial)
         {
             GameManager.Instance.tutorial = false;
-            LoadLevel("tutorial_1");
+            LoadLevel("tuto_1");
         } else
         {
             LoadLevel("level_0");
