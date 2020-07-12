@@ -9,7 +9,7 @@ public class MappingCreator : MonoBehaviour
 {
     InputMaster controls;
     // Map: KeyControl -> (InputAction, bool usable), ...)
-    private Dictionary<InputControl, Tuple<InputAction, bool>> mapping;
+    public Dictionary<InputControl, Tuple<InputAction, bool>> mapping;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class MappingCreator : MonoBehaviour
 
     public bool AddAction(InputControl key, InputAction action)
     {
-        if (mapping[key] != null)
+        if (!mapping.ContainsKey(key))
         {
             mapping[key] = Tuple.Create(action, true);
             return true;
@@ -27,14 +27,20 @@ public class MappingCreator : MonoBehaviour
         return false;
     }
 
-    public void ResetKey(InputControl key)
+    public void RemoveKey(InputControl key)
     {
-        mapping[key] = null;
+        if(mapping.ContainsKey(key))
+        {
+            mapping.Remove(key);
+        }
     }
 
     public void ConsumeKey(InputControl key)
     {
-        mapping[key] = Tuple.Create(mapping[key].Item1, false);
+        if(mapping.ContainsKey(key))
+        {
+            mapping[key] = Tuple.Create(mapping[key].Item1, false);
+        }
     }
 
     public bool KeyIsUsable(InputControl key)
@@ -52,6 +58,7 @@ public class MappingCreator : MonoBehaviour
         // TODO if needed
     }
 
+    // Do not use
     public void ApplyInputBinding()
     {
         foreach(KeyValuePair<InputControl, Tuple<InputAction, bool>> entry in mapping)
