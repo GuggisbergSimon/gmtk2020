@@ -66,10 +66,17 @@ public class Player : MonoBehaviour
             {
                 Move(currentAction, vKey);
             }
-            else if (currentAction == Action.Remap && GameManager.Instance.MappingCreator.KeyIsUsable(vKey))
+            else if (currentAction == Action.Remap)
             {
-                GameManager.Instance.MappingCreator.ConsumeKey(vKey);
-                Remap();
+                if (GameManager.Instance.MappingCreator.KeyIsUsable(vKey))
+                {
+                    Remap();
+                    GameManager.Instance.MappingCreator.ConsumeKey(vKey);
+                }
+                else
+                {
+                    _sourceRobot.PlayOneShot(buttonUsed[Random.Range(0, buttonUsed.Length)]);
+                }
             }
             else if (currentAction == Action.Reset)
             {
