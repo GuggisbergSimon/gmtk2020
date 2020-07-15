@@ -610,6 +610,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2108084448}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2108084450 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2624160778703245020, guid: dd205ab241dbd64468213f951e716f27,
+    type: 3}
+  m_PrefabInstance: {fileID: 2108084448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!222 &134508115064721868
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4700,7 +4706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   remapPanel: {fileID: 134508115717084484}
-  winPanel: {fileID: 0}
+  winPanel: {fileID: 2108084450}
 --- !u!224 &7881164723700134961
 RectTransform:
   m_ObjectHideFlags: 0

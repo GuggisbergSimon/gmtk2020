@@ -5,14 +5,11 @@ public class GameManager : MonoBehaviour
 {
     private LevelManager _levelManager;
     private MappingCreator _mappingCreator;
-    private InputMaster _controls;
     private Player _player;
     private AudioSource _source;
     public LevelManager LevelManager => _levelManager;
 
     public MappingCreator MappingCreator => _mappingCreator;
-
-    public InputMaster Controls => _controls;
 
     public Player Player => _player;
 
@@ -22,13 +19,11 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _controls.Enable();
         SceneManager.sceneLoaded += OnLevelFinishedLoadingScene;
     }
 
     private void OnDisable()
     {
-        _controls.Disable();
         SceneManager.sceneLoaded -= OnLevelFinishedLoadingScene;
     }
 
@@ -36,6 +31,7 @@ public class GameManager : MonoBehaviour
     private void OnLevelFinishedLoadingScene(Scene scene, LoadSceneMode mode)
     {
         Setup();
+        _mappingCreator.Save();
     }
 
     private void Setup()
@@ -55,14 +51,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        _controls = new InputMaster();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _controls = new InputMaster();
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }

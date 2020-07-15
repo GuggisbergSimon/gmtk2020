@@ -28,7 +28,7 @@ public class MappingCreator : MonoBehaviour
         AddAction(KeyCode.Space, Action.Remap);
     }
 
-    private void OnEnable()
+    public void Save()
     {
         mappingCopy = new Dictionary<KeyCode, Tuple<Action, bool>>();
         foreach (var entry in mapping)

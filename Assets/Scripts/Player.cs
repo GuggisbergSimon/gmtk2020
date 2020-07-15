@@ -66,10 +66,10 @@ public class Player : MonoBehaviour
             {
                 Move(currentAction, vKey);
             }
-            else if (currentAction == Action.Remap)
+            else if (currentAction == Action.Remap && GameManager.Instance.MappingCreator.KeyIsUsable(vKey))
             {
-                Remap();
                 GameManager.Instance.MappingCreator.ConsumeKey(vKey);
+                Remap();
             }
             else if (currentAction == Action.Reset)
             {
