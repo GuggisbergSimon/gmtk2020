@@ -280,7 +280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -300}
+  m_AnchoredPosition: {x: 0, y: -453}
   m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &552684781
@@ -541,6 +541,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49719f968c907124e888b381e4527961, type: 3}
+--- !u!20 &980352711 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2181817746022717878, guid: 49719f968c907124e888b381e4527961,
+    type: 3}
+  m_PrefabInstance: {fileID: 980352710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &986308504
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 250}
+  m_AnchoredPosition: {x: 0, y: 285}
   m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986308506
@@ -4949,7 +4955,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 980352711}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4998,6 +5004,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   remapPanel: {fileID: 134508116800336483}
   winPanel: {fileID: 1034277685}
+  chooseNoises: []
+  chooseSpecialNoise: {fileID: 0}
+  winNoise: {fileID: 0}
 --- !u!114 &8125335057691845327
 MonoBehaviour:
   m_ObjectHideFlags: 0

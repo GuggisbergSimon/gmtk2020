@@ -315,6 +315,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49719f968c907124e888b381e4527961, type: 3}
+--- !u!20 &1152583845 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2181817746022717878, guid: 49719f968c907124e888b381e4527961,
+    type: 3}
+  m_PrefabInstance: {fileID: 1152583844}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1261925626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4643,7 +4649,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1152583845}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4690,6 +4696,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   remapPanel: {fileID: 134508115170261762}
   winPanel: {fileID: 1557060182}
+  chooseNoises: []
+  chooseSpecialNoise: {fileID: 0}
+  winNoise: {fileID: 0}
 --- !u!224 &7881164724243815031
 RectTransform:
   m_ObjectHideFlags: 0
