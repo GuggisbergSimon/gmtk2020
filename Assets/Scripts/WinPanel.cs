@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Text.RegularExpressions;
 using UnityEngine.UI;
 
 public class WinPanel : MonoBehaviour
@@ -22,6 +19,13 @@ public class WinPanel : MonoBehaviour
         if(scene.name.Equals("tuto_6"))
         {
             GameManager.Instance.LoadLevel("level_0");
+            return;
+        }
+
+        if (scene.name.Equals("level_6"))
+        {
+            GameManager.Instance.LoadLevel("MainMenu");
+            return;
         }
 
         string[] scenename = scene.name.Split('_');

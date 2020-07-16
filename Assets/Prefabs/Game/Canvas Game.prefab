@@ -3363,6 +3363,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 979.63525
       objectReference: {fileID: 0}
+    - target: {fileID: 2624160778703245008, guid: dd205ab241dbd64468213f951e716f27,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
     - target: {fileID: 2624160778703245020, guid: dd205ab241dbd64468213f951e716f27,
         type: 3}
       propertyPath: m_Name
